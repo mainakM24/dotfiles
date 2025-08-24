@@ -1,0 +1,20 @@
+@define-color primary #8839ef;
+@define-color base #1e1e2e;
+
+* {
+	font-size : 14px;
+	font-family: "JetBrainsMono Nerd Font";
+	font-weight: bold;
+	padding: 2px;
+	border-radius: 6px;
+}
+
+#window {
+	background-color: @base;
+	border: 2px solid @primary; 
+}
+
+#input {
+	padding: 6px;
+	margin: 6px;
+}
