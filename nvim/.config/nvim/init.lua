@@ -16,9 +16,10 @@ vim.keymap.set("n", "[", ":bprev<CR>")
 vim.keymap.set("n", "]", ":bnext<CR>")
 vim.keymap.set("n", "<Esc>", ":noh<CR>")
 vim.keymap.set("n", "-", ":Oil<CR>")
-vim.keymap.set("v", "q", "c\"<Esc>pa\"<Esc>", {desc = "surround selected code with quotes \" "} ) 
+vim.keymap.set("v", "q", "c\"<Esc>pa\"<Esc>", { desc = "surround selected code with quotes \" " })
 vim.keymap.set("n", "<leader>fb", ":FzfLua buffers<CR>")
 vim.keymap.set("n", "<leader>ff", ":FzfLua files<CR>")
+vim.keymap.set("n", "<leader>r", vim.lsp.buf.format)
 
 --plugins
 vim.pack.add({
@@ -40,7 +41,7 @@ require 'oil'.setup({
 })
 
 --lsp
-vim.lsp.enable({"gopls" , "lua_ls"})
+vim.lsp.enable({ "gopls", "lua_ls" })
 
 --color
 vim.cmd("colorscheme catppuccin-mocha")
