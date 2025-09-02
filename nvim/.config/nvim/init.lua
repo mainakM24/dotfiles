@@ -4,6 +4,7 @@ vim.opt.relativenumber = true
 vim.opt.signcolumn = "yes"
 vim.opt.clipboard = "unnamedplus"
 vim.opt.winborder = "rounded"
+vim.opt.completeopt = { "menu", "popup", "noselect" }
 
 --keymaps
 vim.g.mapleader = " "
@@ -27,6 +28,8 @@ vim.pack.add({
 	"https://github.com/catppuccin/nvim",
 	"https://github.com/neovim/nvim-lspconfig",
 	"https://github.com/mason-org/mason.nvim",
+	"https://github.com/mason-org/mason-lspconfig.nvim",
+	"https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim",
 	"https://github.com/stevearc/oil.nvim",
 	"https://github.com/nvim-tree/nvim-web-devicons",
 	"https://github.com/ibhagwan/fzf-lua"
@@ -34,14 +37,21 @@ vim.pack.add({
 
 --setups
 require "mason".setup()
+require "mason-lspconfig".setup()
+require "mason-tool-installer".setup({
+	ensure_installed = {
+		"lua_ls",
+		"pyright",
+		"gopls",
+		"html"
+	}
+})
 require 'oil'.setup({
 	view_options = {
 		show_hidden = true,
 	}
 })
 
---lsp
-vim.lsp.enable({ "gopls", "lua_ls" })
 
 --color
 vim.cmd("colorscheme catppuccin-mocha")
