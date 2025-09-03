@@ -5,6 +5,13 @@ vim.opt.signcolumn = "yes"
 vim.opt.clipboard = "unnamedplus"
 vim.opt.winborder = "rounded"
 vim.opt.completeopt = { "menu", "popup", "noselect" }
+vim.opt.autocomplete = true
+vim.opt.shiftwidth = 2
+vim.opt.autoindent = true
+vim.opt.hlsearch = false
+vim.opt.incsearch = true
+vim.opt.scrolloff = 8
+
 
 --keymaps
 vim.g.mapleader = " "
@@ -13,14 +20,20 @@ vim.keymap.set("n", "<leader>q", ":quit<CR>")
 vim.keymap.set("n", "<leader>wq", ":wq<CR>")
 vim.keymap.set("n", "<leader>e", ":Ex<CR>")
 vim.keymap.set("i", "jj", "<Esc>")
-vim.keymap.set("n", "[", ":bprev<CR>")
-vim.keymap.set("n", "]", ":bnext<CR>")
+vim.keymap.set("n", "<S-Tab>", ":bprev<CR>")
+vim.keymap.set("n", "<Tab>", ":bnext<CR>")
 vim.keymap.set("n", "<Esc>", ":noh<CR>")
 vim.keymap.set("n", "-", ":Oil<CR>")
 vim.keymap.set("v", "q", "c\"<Esc>pa\"<Esc>", { desc = "surround selected code with quotes \" " })
 vim.keymap.set("n", "<leader>fb", ":FzfLua buffers<CR>")
 vim.keymap.set("n", "<leader>ff", ":FzfLua files<CR>")
 vim.keymap.set("n", "<leader>r", vim.lsp.buf.format)
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "K", ":m '>-2<CR>gv=gv")
+
+
+--color
+vim.cmd("colorscheme catppuccin-mocha")
 
 --plugins
 vim.pack.add({
@@ -32,26 +45,22 @@ vim.pack.add({
 	"https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim",
 	"https://github.com/stevearc/oil.nvim",
 	"https://github.com/nvim-tree/nvim-web-devicons",
-	"https://github.com/ibhagwan/fzf-lua"
+	"https://github.com/ibhagwan/fzf-lua",
+	"https://github.com/Saghen/blink.cmp"
 })
 
 --setups
+require 'oil'.setup({ view_options = { show_hidden = true } })
 require "mason".setup()
 require "mason-lspconfig".setup()
+require "blink.cmp".setup({
+  fuzzy = { implementation = "lua" },
+  keymap = { preset = "enter" },
+  completion = { list = { selection = { preselect = true } } }
+})
+
+
+--lsp
 require "mason-tool-installer".setup({
-	ensure_installed = {
-		"lua_ls",
-		"pyright",
-		"gopls",
-		"html"
-	}
+	ensure_installed = { "lua_ls", "html", "cssls" }
 })
-require 'oil'.setup({
-	view_options = {
-		show_hidden = true,
-	}
-})
-
-
---color
-vim.cmd("colorscheme catppuccin-mocha")
