@@ -32,8 +32,6 @@ vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '>-2<CR>gv=gv")
 
 
---color
-vim.cmd("colorscheme catppuccin-mocha")
 
 --plugins
 vim.pack.add({
@@ -48,6 +46,9 @@ vim.pack.add({
 	"https://github.com/ibhagwan/fzf-lua",
 	"https://github.com/Saghen/blink.cmp"
 })
+
+--color
+vim.cmd("colorscheme catppuccin-mocha")
 
 --setups
 require 'oil'.setup({ view_options = { show_hidden = true } })
