@@ -2,10 +2,13 @@ local vim = vim
 --options
 vim.opt.number = true
 vim.opt.relativenumber = true
+vim.opt.cursorline = true
 vim.opt.signcolumn = "yes"
 vim.opt.clipboard = "unnamedplus"
 vim.opt.winborder = "rounded"
 vim.opt.completeopt = { "menu", "noselect" }
+vim.opt.expandtab = true
+vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.autoindent = true
 vim.opt.hlsearch = false
@@ -31,13 +34,15 @@ vim.keymap.set("n", "<leader>ff", ":FzfLua files<CR>")
 vim.keymap.set("n", "<leader>r", vim.lsp.buf.format)
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '>-2<CR>gv=gv")
-vim.keymap.set("n", "<C-h>", "<C-w>h", {desc = "Focus Left window"})
-vim.keymap.set("n", "<C-l>", "<C-w>l", {desc = "Focus Right window"})
+vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Focus Left window" })
+vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Focus Right window" })
+vim.keymap.set("n", "mm", "%", { desc = "Pair Jump" })
 
 
 
 --plugins
 vim.pack.add({
+    "https://github.com/blazkowolf/gruber-darker.nvim",
     "https://github.com/vague2k/vague.nvim",
     "https://github.com/nvim-treesitter/nvim-treesitter",
     "https://github.com/neovim/nvim-lspconfig",
@@ -50,15 +55,17 @@ vim.pack.add({
     "https://github.com/Saghen/blink.cmp",
     "https://github.com/nvim-mini/mini.indentscope",
     "https://github.com/MeanderingProgrammer/render-markdown.nvim",
+    "https://github.com/akinsho/bufferline.nvim",
 })
 
 --color
 vim.cmd.colorscheme("vague")
 
 --setups
+require "bufferline".setup()
 require "mason".setup()
 require "mason-lspconfig".setup()
-require "mini.indentscope".setup({ draw = {delay = 0}, symbol = "│" })
+--require "mini.indentscope".setup({ draw = { delay = 0 }, symbol = "│" })
 require 'oil'.setup({
     default_file_explorer = false,
     view_options = { show_hidden = true }
@@ -69,18 +76,18 @@ require "blink.cmp".setup({
     completion = { list = { selection = { preselect = true } } }
 })
 require "nvim-treesitter.configs".setup({
-    ensure_installed = {"c", "cpp", "html", "javascript"},
+    ensure_installed = { "c", "cpp", "html", "javascript" },
     auto_install = true,
     highlight = { enable = true },
     indent = { enable = true },
     incremental_selection = {
-	enable = true,
-	keymaps = {
-	    init_selection = "<leader>ss",
-	    node_incremental = "<leader>si",
-	    scope_incremental = "<leader>sc",
-	    node_decremental = "<leader>sd",
-	},
+        enable = true,
+        keymaps = {
+            init_selection = "<leader>ss",
+            node_incremental = "<leader>si",
+            scope_incremental = "<leader>sc",
+            node_decremental = "<leader>sd",
+        },
     },
 })
 
