@@ -94,5 +94,5 @@ require "nvim-treesitter.configs".setup({
 
 --lsp
 require "mason-tool-installer".setup({
-    ensure_installed = { "lua_ls", "html", "cssls", "clangd" }
+    ensure_installed = { "lua_ls" }
 })
